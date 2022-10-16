@@ -11,7 +11,7 @@ function Header() {
             <div className='App-logo-container'>
                 <Link to="home"><img src={logo} className="App-logo" alt="logo" /></Link>
                 <h1 className="App-name">myEstate</h1>
-                {/* <p>...<em>Properties<br /> Simplified</em></p> */}
+                <p>...<em>Properties<br /> Simplified</em></p>
                 <h4 className="App-text">Rent</h4>
                 <h4 className="App-text">Buy</h4>
                 <h4 className="App-text">Sell</h4>
