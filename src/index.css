@@ -1,17 +1,17 @@
 :root{
-  --color-v1: rgba(226, 238, 225, 0.1);
-  --color-v2: rgba(184, 228, 178, 0.2);
-  --color-v4: rgba(91, 235, 72, 0.4);
-  --color-v8: rgba(91, 235, 72, 0.8);
-  --color-v10: rgba(91, 235, 72, 1);
-  --bg-color-lg: linear-gradient(to right, var(--color-v4), white, var(--color-v4));
-  --bg-color-rg: radial-gradient(var(--color-v4) 10%, white 80%, var(--color-v4) 10%);
-  --bg-color-cg: conic-gradient(var(--color-v4) 30deg, white 30deg, var(--color-v4) 30deg);
+  --color-v1: rgba(211, 235, 72, 0.1);
+  --color-v2: rgba(211, 235, 72, 0.2);
+  --color-v4: rgba(211, 235, 72,, 0.4);
+  --color-v8: rgba(211, 235, 72, 0.8);
+  --color-v10: rgba(211, 235, 72, 1);
+  --bg-color-lg: linear-gradient(to right, var(--color-v1), white, var(--color-v1));
+  --bg-color-rg: radial-gradient(var(--color-v1) 10%, white 80%, var(--color-v1) 10%);
+  --bg-color-cg: conic-gradient(var(--color-v1) 30deg, white 30deg, var(--color-v1) 30deg);
   --bg-card-v4: var(--color-v4);
   --bg-card-v8: var(--color-v8);
   --bg-button-color: var(--bg-color-l1);
   --title-color: rgba(12, 6, 6, 1);
-  --text-color: rgba(12, 6, 6, 0.6);
+  --text-color: rgba(3, 3, 3, 0.6);
   --text-font: Verdana;
 }
 
