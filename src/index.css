@@ -6,7 +6,7 @@
   --color-v10: rgba(91, 235, 72, 1);
   --bg-color-lg: linear-gradient(to right, var(--color-v4), white, var(--color-v4));
   --bg-color-rg: radial-gradient(var(--color-v4) 10%, white 80%, var(--color-v4) 10%);
-  --bg-color-cg: conic-gradient(var(--color-v4) 30deg, white 300deg, var(--color-v4) 30deg);
+  --bg-color-cg: conic-gradient(var(--color-v4) 30deg, white 30deg, var(--color-v4) 30deg);
   --bg-card-v4: var(--color-v4);
   --bg-card-v8: var(--color-v8);
   --bg-button-color: var(--bg-color-l1);
