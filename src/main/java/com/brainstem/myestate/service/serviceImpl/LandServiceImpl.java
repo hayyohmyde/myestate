@@ -91,6 +91,12 @@ public class LandServiceImpl implements LandService {
                 .user(landDto.getUser())
                 .address(landDto.getAddress())
                 .forRent(landDto.isForRent())
+                .frontImage(landDto.getFrontImage())
+                .backImage(landDto.getBackImage())
+                .sittingRoomImage(landDto.getSittingRoomImage())
+                .bedroom1Image(landDto.getBedroom1Image())
+                .bedroom2Image(landDto.getBedroom2Image())
+                .toiletImage(landDto.getToiletImage())
                 .build();
     }
 
@@ -115,6 +121,12 @@ public class LandServiceImpl implements LandService {
                 .user(land.getUser())
                 .address(land.getAddress())
                 .forRent(land.isForRent())
+                .frontImage(land.getFrontImage())
+                .backImage(land.getBackImage())
+                .sittingRoomImage(land.getSittingRoomImage())
+                .bedroom1Image(land.getBedroom1Image())
+                .bedroom2Image(land.getBedroom2Image())
+                .toiletImage(land.getToiletImage())
                 .build();
     }
 }

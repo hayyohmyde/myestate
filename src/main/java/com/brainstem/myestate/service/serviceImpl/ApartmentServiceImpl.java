@@ -88,6 +88,13 @@ public class ApartmentServiceImpl implements ApartmentService {
         apartment.setOtherFee(apartmentDto.getOtherFee());
         apartment.setInfo(apartmentDto.getInfo());
         apartment.setUser(apartmentDto.getUser());
+        apartment.setBackImage(apartmentDto.getBackImage());
+        apartment.setFrontImage(apartmentDto.getFrontImage());
+        apartment.setSittingRoomImage(apartmentDto.getSittingRoomImage());
+        apartment.setBedroom1Image(apartmentDto.getBedroom1Image());
+        apartment.setBedroom2Image(apartmentDto.getBedroom2Image());
+        apartment.setKitchenImage(apartmentDto.getKitchenImage());
+        apartment.setToiletImage(apartmentDto.getToiletImage());
         apartment.setApartmentType(apartmentDto.getApartmentType());
         apartment.setAddress(apartmentDto.getAddress());
         apartment.setBuildingType(apartmentDto.getBuildingType());
@@ -157,6 +164,13 @@ public class ApartmentServiceImpl implements ApartmentService {
         apartmentDto.setOtherFee(apartment.getOtherFee());
         apartmentDto.setInfo(apartment.getInfo());
         apartmentDto.setUser(apartment.getUser());
+        apartmentDto.setBackImage(apartment.getBackImage());
+        apartmentDto.setFrontImage(apartment.getFrontImage());
+        apartmentDto.setSittingRoomImage(apartment.getSittingRoomImage());
+        apartmentDto.setBedroom1Image(apartment.getBedroom1Image());
+        apartmentDto.setBedroom2Image(apartment.getBedroom2Image());
+        apartmentDto.setKitchenImage(apartment.getKitchenImage());
+        apartmentDto.setToiletImage(apartment.getToiletImage());
         apartmentDto.setApartmentType(apartment.getApartmentType());
         apartmentDto.setAddress(apartment.getAddress());
         apartmentDto.setBuildingType(apartment.getBuildingType());

@@ -1,5 +1,6 @@
 package com.brainstem.myestate.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -53,6 +54,7 @@ public class Land {
 
     private String info;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @ToString.Exclude
@@ -60,7 +62,7 @@ public class Land {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "number", column = @Column(name = "plot_no")),
+            @AttributeOverride(name = "flatNo", column = @Column(name = "plot_no")),
             @AttributeOverride(name = "street", column = @Column(name = "street")),
             @AttributeOverride(name = "nearestJunction", column = @Column(name = "nearest_junction")),
             @AttributeOverride(name = "estate", column = @Column(name = "estate")),
@@ -71,6 +73,27 @@ public class Land {
             @AttributeOverride(name = "location", column = @Column(name = "location"))
     })
     private Address address;
+
+    @Column(name = "front_image")
+    private String frontImage;
+
+    @Column(name = "sitting_room_image")
+    private String sittingRoomImage;
+
+    @Column(name = "bedroom_image")
+    private String bedroom1Image;
+
+    @Column(name = "bedroom2_image")
+    private String bedroom2Image;
+
+    @Column(name = "kitchen_image")
+    private String kitchenImage;
+
+    @Column(name = "toilet_image")
+    private String toiletImage;
+
+    @Column(name = "back_image")
+    private String backImage;
 
     @Override
     public boolean equals(Object o) {

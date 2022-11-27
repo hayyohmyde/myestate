@@ -30,6 +30,13 @@ public class ApartmentDto {
     private BigDecimal otherFee;
     private String info;
     private User user;
+    private String frontImage;
+    private String sittingRoomImage;
+    private String bedroom1Image;
+    private String bedroom2Image;
+    private String kitchenImage;
+    private String toiletImage;
+    private String backImage;
     private ApartmentType apartmentType;
     private Address address;
     private BuildingType buildingType;

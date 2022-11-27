@@ -1,5 +1,6 @@
 package com.brainstem.myestate.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -24,13 +25,12 @@ public class Wallet {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "wallet_address")
+    @Column(name = "wallet_address", unique = true)
 //    private String walletAddress;
     private UUID walletAddress = UUID.randomUUID();
+    private BigDecimal amount = BigDecimal.valueOf(0);
 
-    private BigDecimal amount;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;

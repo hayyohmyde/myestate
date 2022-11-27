@@ -26,5 +26,12 @@ public class LandDto {
     private String info;
     private User user;
     private Address address;
+    private String frontImage;
+    private String sittingRoomImage;
+    private String bedroom1Image;
+    private String bedroom2Image;
+    private String kitchenImage;
+    private String toiletImage;
+    private String backImage;
 
 }

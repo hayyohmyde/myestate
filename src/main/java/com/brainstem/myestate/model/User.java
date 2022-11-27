@@ -1,6 +1,9 @@
 package com.brainstem.myestate.model;
 
 import com.brainstem.myestate.utils.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -21,12 +24,16 @@ import java.util.regex.Pattern;
 @AllArgsConstructor
 @Entity
 @Builder
+//To suppress serializing properties with null values
+//@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+////Ignoring new fields on JSON objects
+//@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
     @SequenceGenerator(name = "user_gen", sequenceName = "user_seq")
-    @Column(name = "id", nullable = true, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "first_name")
@@ -36,25 +43,27 @@ public class User {
 
     @Column(name = "other_name")
     private String otherName;
-    private LocalDate dob;
+//    private LocalDate dob;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Column(unique = true, nullable = false)
     private String email;
     private String username;
     private String password;
+    @Column(unique = true)
+    private String phoneNumber;
 
-
-    @Transient
-    private int age;
+//    @Transient
+//    private int age;
 
     @Column(name = "registered_date")
     private LocalDateTime registeredDate = LocalDateTime.now();
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "number", column = @Column(name = "flat_no")),
+            @AttributeOverride(name = "flatNo", column = @Column(name = "flat_no")),
             @AttributeOverride(name = "street", column = @Column(name = "street")),
             @AttributeOverride(name = "nearestJunction", column = @Column(name = "nearest_junction")),
             @AttributeOverride(name = "estate", column = @Column(name = "estate")),
@@ -66,21 +75,28 @@ public class User {
     })
     private Address address;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id")
+    private Image profileImage;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "wallet_id")
     private Wallet wallet;
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Apartment> apartments = new HashSet<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Building> buildings = new HashSet<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Land> lands = new HashSet<>();
 
-    public int getAge() {
-        return Period.between(this.dob, LocalDate.now()).getYears();
-    }
+//    public int getAge() {
+//        return Period.between(this.dob, LocalDate.now()).getYears();
+//    }
 
     public Gender gender() {
         return gender;
@@ -94,6 +110,10 @@ public class User {
 
     public void addLand(Land land){
         this.lands.add(land);
+
+    }
+    public void remove(Land land){
+        this.lands.remove(land);
     }
 
     public void addApartment(Apartment apartment){

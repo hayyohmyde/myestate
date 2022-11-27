@@ -90,6 +90,12 @@ public class BuildingServiceImpl implements BuildingService {
                     .amount(buildingDto.getAmount())
                     .commision(buildingDto.getCommision())
                     .user(buildingDto.getUser())
+                    .frontImage(buildingDto.getFrontImage())
+                    .backImage(buildingDto.getBackImage())
+                    .kitchenImage(buildingDto.getKitchenImage())
+                    .toiletImage(buildingDto.getToiletImage())
+                    .bedroom1Image(buildingDto.getBedroom1Image())
+                    .bedroom2Image(buildingDto.getBedroom2Image())
                     .build();
         }
 
@@ -115,6 +121,12 @@ public class BuildingServiceImpl implements BuildingService {
                     .amount(building.getAmount())
                     .commision(building.getCommision())
                     .user(building.getUser())
+                    .frontImage(building.getFrontImage())
+                    .backImage(building.getBackImage())
+                    .kitchenImage(building.getKitchenImage())
+                    .toiletImage(building.getToiletImage())
+                    .bedroom1Image(building.getBedroom1Image())
+                    .bedroom2Image(building.getBedroom2Image())
                     .build();
         }
 }

@@ -6,9 +6,6 @@ import com.brainstem.myestate.utils.ApartmentType;
 import com.brainstem.myestate.utils.BuildingType;
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Builder
@@ -33,4 +30,11 @@ public class BuildingDto {
     private boolean landMeasure;
     private String info;
     private User user;
+    private String frontImage;
+    private String sittingRoomImage;
+    private String bedroom1Image;
+    private String bedroom2Image;
+    private String kitchenImage;
+    private String toiletImage;
+    private String backImage;
 }

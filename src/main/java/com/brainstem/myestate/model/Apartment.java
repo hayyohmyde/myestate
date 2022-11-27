@@ -2,8 +2,10 @@ package com.brainstem.myestate.model;
 
 import com.brainstem.myestate.utils.ApartmentType;
 import com.brainstem.myestate.utils.BuildingType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -65,6 +67,7 @@ public class Apartment {
     private BigDecimal otherFee;
     private String info;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id" )
     @ToString.Exclude
@@ -90,6 +93,26 @@ public class Apartment {
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
 
+    @Column(name = "front_image")
+    private String frontImage;
+
+    @Column(name = "sitting_room_image")
+    private String sittingRoomImage;
+
+    @Column(name = "bedroom_image")
+    private String bedroom1Image;
+
+    @Column(name = "bedroom2_image")
+    private String bedroom2Image;
+
+    @Column(name = "kitchen_image")
+    private String kitchenImage;
+
+    @Column(name = "toilet_image")
+    private String toiletImage;
+
+    @Column(name = "back_image")
+    private String backImage;
     public ApartmentType getApartmentType(){ return this.apartmentType;}
     public void setApartmentType(ApartmentType apartmentType){ this.apartmentType = apartmentType; }
 
