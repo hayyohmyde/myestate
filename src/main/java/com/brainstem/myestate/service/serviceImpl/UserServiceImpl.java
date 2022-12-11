@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
         //initiate wallet
         user.setWallet(wallet);
         //Add roles
-         Role roles = roleRepository.findByName("ROLE_USER").get();
+         Role roles = roleRepository.findByName("ROLE_ADMIN").get();
         user.setRoles(Collections.singleton(roles));
         //save wallet in db
         walletRepository.save(wallet);
