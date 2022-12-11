@@ -4,12 +4,13 @@ import com.brainstem.myestate.payload.ApartmentDto;
 import com.brainstem.myestate.service.ApartmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/apartments")
+@RequestMapping("/api")
 public class ApartmentController {
 
     private ApartmentService apartmentService;
@@ -19,7 +20,8 @@ public class ApartmentController {
     }
 
     //create apartment post rest api
-    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')") //- To enable method level accessibility for this endpoint
+    @PostMapping("/v1/apartments")
     public ResponseEntity<ApartmentDto> createApartment(
             @RequestBody ApartmentDto apartmentDto
     ){
@@ -27,7 +29,7 @@ public class ApartmentController {
     }
 
     //get all apartments rest api
-    @GetMapping
+    @GetMapping("/v1/apartments")
     public List<ApartmentDto> getAllApartments(
             @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize
@@ -36,14 +38,14 @@ public class ApartmentController {
     }
 
     //get apartment by id
-    @GetMapping("/{id}")
+    @GetMapping("/v1/apartments/{id}")
     public ResponseEntity<ApartmentDto> getApartmentByid(
             @PathVariable(name = "id") long id){
         return ResponseEntity.ok(apartmentService.getApartmentById(id));
     }
 
     //update apartment by id
-    @PutMapping("/{id}")
+    @PutMapping("/v1/apartments/{id}")
 //    @RequestMapping("/id", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity<ApartmentDto> updateApartment(
             @PathVariable(name = "id") long id, @RequestBody ApartmentDto apartmentDto
@@ -53,7 +55,7 @@ public class ApartmentController {
     }
 
     //delete apartment rest api
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/v1/apartments/{id}")
     public ResponseEntity<String> deleteApartment(@PathVariable(name = "id") long id){
         apartmentService.deleteApartment(id);
         return new ResponseEntity<>("Apartment entity is deleted succesfully!", HttpStatus.OK);

@@ -1,8 +1,6 @@
 package com.brainstem.myestate.service.serviceImpl;
 
 import com.brainstem.myestate.model.Image;
-import com.brainstem.myestate.payload.ApartmentDto;
-import com.brainstem.myestate.payload.UserDto;
 import com.brainstem.myestate.repository.ImageRepository;
 import com.brainstem.myestate.service.ImagesService;
 import org.springframework.stereotype.Service;

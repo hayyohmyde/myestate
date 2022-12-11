@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/lands")
+@RequestMapping("/api")
 public class LandController {
     private LandService landService;
 
@@ -20,7 +20,7 @@ public class LandController {
 
 
     //create land post rest api
-    @PostMapping
+    @PostMapping("/v1/lands")
     public ResponseEntity<LandDto> createLand(
             @RequestBody LandDto landDto
     ){
@@ -28,7 +28,7 @@ public class LandController {
     }
 
     //get all lands rest api
-    @GetMapping
+    @GetMapping("/v1/lands")
     public List<LandDto> getAllLands(
             @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize
@@ -37,14 +37,14 @@ public class LandController {
     }
 
     //get lands by id
-    @GetMapping("/{id}")
+    @GetMapping("/v1/lands/{id}")
     public ResponseEntity<LandDto> getLandByid(
             @PathVariable(name = "id") long id){
         return ResponseEntity.ok(landService.getLandById(id));
     }
 
     //update apartment by id
-    @PutMapping("/{id}")
+    @PutMapping("/v1/lands/{id}")
 //    @RequestMapping("/id", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity<LandDto> updateLand(
             @PathVariable(name = "id") long id, @RequestBody LandDto landDto
@@ -54,7 +54,7 @@ public class LandController {
     }
 
     //delete land rest api
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/v1/lands/{id}")
     public ResponseEntity<String> deleteLand(@PathVariable(name = "id") long id){
         landService.deleteLand(id);
         return new ResponseEntity<>("Land entity is deleted succesfully!", HttpStatus.OK);

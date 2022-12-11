@@ -13,7 +13,6 @@ import java.util.UUID;
 @Setter
 @ToString
 @RequiredArgsConstructor
-//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -26,14 +25,8 @@ public class Wallet {
     private Long id;
 
     @Column(name = "wallet_address", unique = true)
-//    private String walletAddress;
     private UUID walletAddress = UUID.randomUUID();
     private BigDecimal amount = BigDecimal.valueOf(0);
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    @ToString.Exclude
-    private User user;
 
     @Override
     public boolean equals(Object o) {

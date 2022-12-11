@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/buildings")
+@RequestMapping("/api")
 public class BuildingController {
         private BuildingService buildingService;
 
@@ -18,7 +18,7 @@ public class BuildingController {
         }
 
         //create building post rest api
-        @PostMapping
+        @PostMapping("/v1/buildings")
         public ResponseEntity<BuildingDto> createBuilding(
                 @RequestBody BuildingDto buildingDto
         ){
@@ -26,7 +26,7 @@ public class BuildingController {
         }
 
         //get all buildings rest api
-        @GetMapping
+        @GetMapping("/v1/buildings")
         public List<BuildingDto> getAllBuildings(
                 @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
                 @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize
@@ -35,14 +35,14 @@ public class BuildingController {
         }
 
         //get building by id
-        @GetMapping("/{id}")
+        @GetMapping("/v1/buildings/{id}")
         public ResponseEntity<BuildingDto> getBuildingByid(
                 @PathVariable(name = "id") long id){
             return ResponseEntity.ok(buildingService.getBuildingById(id));
         }
 
         //update building by id
-        @PutMapping("/{id}")
+        @PutMapping("/v1/buildings/{id}")
         public ResponseEntity<BuildingDto> updateBuilding(
                 @PathVariable(name = "id") long id, @RequestBody BuildingDto buildingDto
         ){
@@ -51,7 +51,7 @@ public class BuildingController {
         }
 
         //delete apartment rest api
-        @DeleteMapping("/{id}")
+        @DeleteMapping("/v1/buildings/{id}")
         public ResponseEntity<String> deleteApartment(@PathVariable(name = "id") long id){
             buildingService.deleteBuilding(id);
             return new ResponseEntity<>("Building entity is deleted succesfully!", HttpStatus.OK);

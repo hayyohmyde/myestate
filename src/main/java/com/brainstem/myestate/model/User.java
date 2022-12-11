@@ -24,20 +24,17 @@ import java.util.regex.Pattern;
 @AllArgsConstructor
 @Entity
 @Builder
-//To suppress serializing properties with null values
-//@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-////Ignoring new fields on JSON objects
-//@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_gen")
     @SequenceGenerator(name = "user_gen", sequenceName = "user_seq")
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
 
@@ -75,13 +72,22 @@ public class User {
     })
     private Address address;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roles;
+
     @OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id")
     private Image profileImage;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "wallet_id")
     private Wallet wallet;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Apartment> apartments = new HashSet<>();

@@ -26,7 +26,6 @@ public class WalletServiceImpl implements WalletService {
     private WalletDto mapToWalletDto(Wallet wallet) {
         WalletDto walletDto = WalletDto.builder()
                 .amount(wallet.getAmount())
-                .user(wallet.getUser())
                 .walletAddress(wallet.getWalletAddress())
                 .build();
         return walletDto;
@@ -36,7 +35,6 @@ public class WalletServiceImpl implements WalletService {
         return Wallet.builder()
                 .amount(walletDto.getAmount())
                 .walletAddress(walletDto.getWalletAddress())
-                .user(walletDto.getUser())
                 .build();
     }
 
