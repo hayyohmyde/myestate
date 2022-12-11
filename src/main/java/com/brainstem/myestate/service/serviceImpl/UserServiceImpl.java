@@ -7,7 +7,6 @@ import com.brainstem.myestate.payload.UserDto;
 import com.brainstem.myestate.repository.*;
 import com.brainstem.myestate.security.JwtTokenProvider;
 import com.brainstem.myestate.service.UserService;
-import com.brainstem.myestate.utils.Serialize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
