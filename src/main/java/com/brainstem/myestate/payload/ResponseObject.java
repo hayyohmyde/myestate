@@ -1,4 +1,4 @@
-package com.brainstem.myestate;
+package com.brainstem.myestate.payload;
 
 import lombok.*;
 

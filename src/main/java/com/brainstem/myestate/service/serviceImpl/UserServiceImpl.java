@@ -1,6 +1,6 @@
 package com.brainstem.myestate.service.serviceImpl;
 
-import com.brainstem.myestate.ResponseObject;
+import com.brainstem.myestate.payload.ResponseObject;
 import com.brainstem.myestate.model.*;
 import com.brainstem.myestate.payload.LoginDto;
 import com.brainstem.myestate.payload.UserDto;

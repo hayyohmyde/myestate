@@ -1,8 +1,6 @@
 package com.brainstem.myestate.security;
 
-import com.brainstem.myestate.ResponseObject;
 import com.brainstem.myestate.exception.ResourceNotFoundException;
-import com.brainstem.myestate.payload.ResponseData;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

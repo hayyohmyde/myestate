@@ -13,14 +13,14 @@ import java.util.List;
 @RequestMapping("/api")
 public class ApartmentController {
 
-    private ApartmentService apartmentService;
+    private final ApartmentService apartmentService;
 
     public ApartmentController(ApartmentService apartmentService) {
         this.apartmentService = apartmentService;
     }
 
     //create apartment post rest api
-    @PreAuthorize("hasRole('ADMIN')") //- To enable method level accessibility for this endpoint
+    //@PreAuthorize("hasRole('ADMIN')") //- To enable method level accessibility for this endpoint
     @PostMapping("/v1/apartments")
     public ResponseEntity<ApartmentDto> createApartment(
             @RequestBody ApartmentDto apartmentDto
@@ -35,6 +35,11 @@ public class ApartmentController {
             @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize
     ){
         return apartmentService.getAllApartments(pageNumber, pageSize);
+    }
+
+    //search apartments rest api
+    public ResponseEntity<List<ApartmentDto>> searchApartments(@RequestParam("query") String query){
+        return ResponseEntity.ok(apartmentService.searchApartments(query));
     }
 
     //get apartment by id

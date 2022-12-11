@@ -63,6 +63,12 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     @Override
+    public List<ApartmentDto> searchApartments(String query) {
+        List<Apartment> listOfApartments = apartmentRepository.searchApartments(query);
+        return listOfApartments.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    @Override
     public ApartmentDto updateApartment(long id, ApartmentDto apartmentDto) {
         //get apartment by id or throw exception if it does not exist
         Apartment apartment = apartmentRepository.findById(id).orElseThrow(
