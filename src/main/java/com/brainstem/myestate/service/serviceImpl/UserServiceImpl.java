@@ -5,6 +5,7 @@ import com.brainstem.myestate.model.*;
 import com.brainstem.myestate.payload.LoginDto;
 import com.brainstem.myestate.payload.UserDto;
 import com.brainstem.myestate.repository.*;
+import com.brainstem.myestate.security.JwtAuthResponse;
 import com.brainstem.myestate.security.JwtTokenProvider;
 import com.brainstem.myestate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -44,7 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(LoginDto loginDto) {
+    public JwtAuthResponse login(LoginDto loginDto) {
+        Optional<User> user = null;
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDto.getUsernameOrEmail(),
@@ -54,12 +57,24 @@ public class UserServiceImpl implements UserService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //generate token from jwtTokenProvider
         String token = jwtTokenProvider.generateToken(authentication);
-        return token;
+        if(loginDto.getUsernameOrEmail().contains("a")){
+            user = userRepository.findByEmail(loginDto.getUsernameOrEmail());
+        }else {
+            user = userRepository.findByUsername(loginDto.getUsernameOrEmail());
+        }
+
+        return new JwtAuthResponse(token, mapToDto(user.get()));
     }
 
     @Override
-    public ResponseObject updateProfile(long UserId, UserDto userDto) {
-        return null;
+    public ResponseObject updateProfile(long userId, UserDto userDto) {
+        Optional<User> userEntity = userRepository.findById(userId);
+        userEntity.get().setAddress(userDto.getAddress());
+        userEntity.get().setOtherName(userDto.getOtherName());
+        userEntity.get().setGender(userDto.getGender());
+        userEntity.get().setPhoneNumber(userDto.getPhoneNumber());
+        userEntity.get().setProfileImage(userDto.getProfileImage());
+        return new ResponseObject(mapToDto(userEntity.get()), userDto.getUsername() + " is Successfully updated");
     }
 
     @Override
@@ -77,15 +92,20 @@ public class UserServiceImpl implements UserService {
         }
         //map userDto to entity
         User user = mapToEntity(userDto);
+
         //initiate wallet
         user.setWallet(wallet);
+
         //Add roles
-         Role roles = roleRepository.findByName("ROLE_ADMIN").get();
+        Role roles = roleRepository.findByName("ROLE_USER").get();
         user.setRoles(Collections.singleton(roles));
+
         //save wallet in db
         walletRepository.save(wallet);
+
         //save user to db
         User entity = userRepository.save(user);
+
         //return response
         return new ResponseObject(mapToDto(entity), "User " + userDto.getUsername() + " created Successfully");
     }
@@ -102,11 +122,11 @@ public class UserServiceImpl implements UserService {
                 .otherName(user.getOtherName())
                 .username(user.getUsername())
                 .wallet(user.getWallet())
-                .gender(user.gender())
+                .gender(user.getGender())
                 .lastName(user.getLastName())
                 .firstName(user.getFirstName())
                 .email(user.getEmail())
-//                .profileImage(user.getProfileImage().getId())
+//                .profileImage(user.getProfileImage())
                 .build();
     }
 
@@ -124,7 +144,7 @@ public class UserServiceImpl implements UserService {
                 .firstName(userDto.getFirstName())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .email(userDto.getEmail())
-//                .profileImage(userDto.setProfileImage())
+//                .profileImage(userDto.getProfileImage())
                 .build();
     }
 

@@ -18,7 +18,8 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
             "Or a.rent LIKE CONCAT('%', :query, '%')" +
             "Or a.estate LIKE CONCAT('%', :query, '%')" +
             "Or a.lga LIKE CONCAT('%', :query, '%')" +
-            "Or a.country LIKE CONCAT('%', :query, '%')",
+            "Or a.country LIKE CONCAT('%', :query, '%')" +
+            "Or a.info LIKE CONCAT('%', :query, '%')",
             nativeQuery = true
     )
     List<Apartment> searchApartments(String query);

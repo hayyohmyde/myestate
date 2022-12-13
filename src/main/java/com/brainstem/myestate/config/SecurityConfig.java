@@ -64,8 +64,9 @@ public class SecurityConfig{ // WebSecurityConfigurerAdapter was removed bcos it
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests((authorize) -> authorize
-                        .antMatchers(HttpMethod.GET, "/api/v1/**").permitAll()
-                        .antMatchers(HttpMethod.POST, "/api/v1/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+                        .antMatchers(HttpMethod.HEAD, "api/**").permitAll()
                         .antMatchers("/v2/api-docs/**").permitAll()
                         .antMatchers("/swagger-ui/**").permitAll()
                         .antMatchers("/swagger-resources/**").permitAll()

@@ -1,20 +1,15 @@
 package com.brainstem.myestate.model;
 
 import com.brainstem.myestate.utils.Gender;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 
 @Getter
@@ -89,23 +84,23 @@ public class User {
     private Wallet wallet;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Apartment> apartments = new HashSet<>();
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Building> buildings = new HashSet<>();
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Land> lands = new HashSet<>();
 
 //    public int getAge() {
 //        return Period.between(this.dob, LocalDate.now()).getYears();
 //    }
 
-    public Gender gender() {
-        return gender;
+    public Gender gender(Gender gender) {
+        return this.gender;
     }
 
     public void setGender(Gender gender){ this.gender = gender; }

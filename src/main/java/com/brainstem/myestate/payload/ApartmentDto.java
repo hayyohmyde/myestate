@@ -1,15 +1,22 @@
 package com.brainstem.myestate.payload;
 
 import com.brainstem.myestate.model.Address;
+import com.brainstem.myestate.model.Image;
 import com.brainstem.myestate.model.User;
 import com.brainstem.myestate.utils.ApartmentType;
 import com.brainstem.myestate.utils.BuildingType;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
-@Data
+@Setter
+@Getter
 public class ApartmentDto {
     private Long id;
     private String owner;
@@ -19,29 +26,36 @@ public class ApartmentDto {
     private String noOfKitchens;
     private String noOfWardropes;
     private String noOfParkingSpace;
-    private boolean estateResidence;
+    private boolean isEstateResidence;
     private String hoursOfElectricity;
     private String hoursOfWaterSupply;
-    private boolean serviced;
+    private boolean isServiced;
     private BigDecimal amount;
-    private boolean forRent;
+    private boolean isRent;
+    private boolean isActive;
     private BigDecimal agencyFee;
     private BigDecimal commision;
     private BigDecimal otherFee;
     private String info;
     private User user;
-    private String frontImage;
-    private String sittingRoomImage;
-    private String bedroom1Image;
-    private String bedroom2Image;
-    private String kitchenImage;
-    private String toiletImage;
-    private String backImage;
+    private List<?> images = null;
     private ApartmentType apartmentType;
     private Address address;
     private BuildingType buildingType;
 
-    public boolean getForRent() {
-        return this.forRent;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setServiced(boolean serviced) {
+        isServiced = serviced;
+    }
+
+    public void setRent(boolean rent) {
+        isRent = rent;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

@@ -54,11 +54,11 @@ public class Land {
 
     private String info;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    @ToString.Exclude
-    private User user;
+//    @JsonBackReference
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id", nullable = false)
+//    @ToString.Exclude
+//    private User user;
 
     @Embedded
     @AttributeOverrides({

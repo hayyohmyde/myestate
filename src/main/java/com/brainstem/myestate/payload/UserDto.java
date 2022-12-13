@@ -4,6 +4,7 @@ import com.brainstem.myestate.model.*;
 import com.brainstem.myestate.utils.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -19,26 +20,40 @@ import java.time.LocalDateTime;
 //@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto  {
     private Long id;
+
     @NotNull
     @Size(min = 2, message = "firstName should have atleast 3 characters")
     private String firstName;
+
     @NotNull
     @Size(min = 2, message = "firstName should have atleast 3 characters")
     private String lastName;
+
     private String otherName;
+
 //    private LocalDate dob;
+
     private Gender gender;
+
     @Email(message = "Email should be a valid email")
     private String email;
+
     @NotNull(message = "username should not be empty")
     private String username;
+
     @NotNull@Size(min=8, message = "Password should be series of character, numbers, special and cased character")
     private String password;
+
+    @NotNull@Size(min=9, message = "Phone Number should be numbers of atleast 9 length")
     private String phoneNumber;
+
 //    private int age;
+
+    @CreationTimestamp
     private LocalDateTime registeredDate;
+
     private Address address;
     private Wallet wallet;
-    private String profileImage;
+    private Image profileImage;
 
 }

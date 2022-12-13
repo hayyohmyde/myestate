@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseData {
+public class ImageResponse {
     private String fileName;
     private String downloadURL;
     private String  fileType;

@@ -20,11 +20,11 @@ public class Serialize {
                 .otherName(user.getOtherName())
                 .username(user.getUsername())
                 .wallet(user.getWallet())
-                .gender(user.gender())
+                .gender(user.getGender())
                 .lastName(user.getLastName())
                 .firstName(user.getFirstName())
                 .email(user.getEmail())
-//                .profileImage(user.getProfileImage().getId())
+                .profileImage(user.getProfileImage())
                 .build();
     }
 
@@ -42,7 +42,7 @@ public class Serialize {
                 .firstName(userDto.getFirstName())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .email(userDto.getEmail())
-//                .profileImage(userDto.setProfileImage())
+                .profileImage(userDto.getProfileImage())
                 .build();
     }
 }

@@ -24,13 +24,13 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation(value = "This is Sign in / log in REST API and " +
+    @ApiOperation(value = "This REST API " +
             "requires email or username and a password. " +
             "Successful response return a JWT token needed " +
             "to query the rest PUT, PATCH, DELETE and POST")
     @PostMapping("/v1/auth/login")
     public ResponseEntity<JwtAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
-        return new ResponseEntity<>(new JwtAuthResponse(userService.login(loginDto)), HttpStatus.OK);
+        return new ResponseEntity<>(userService.login(loginDto), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This Sign Up REST API " +

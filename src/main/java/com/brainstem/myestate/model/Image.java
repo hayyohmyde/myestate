@@ -9,12 +9,12 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Builder
-@Entity
 @Setter
 @ToString
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Image {
     @Id
     @GeneratedValue( generator = "uuid")
@@ -28,13 +28,23 @@ public class Image {
     private String id;
     private String fileName;
     private String fileType;
+    private String url;
     @Lob
     private byte[] data;
+    private Long size;
 
-    public Image(String fileName, String fileType, byte[] data) {
+    public Image(String fileName, String fileType, byte[] data, Long size) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
+        this.size = size;
     }
 
+    public Image(String fileName, String fileType, String url, byte[] data, Long size) {
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.url = url;
+        this.data = data;
+        this.size = size;
+    }
 }
