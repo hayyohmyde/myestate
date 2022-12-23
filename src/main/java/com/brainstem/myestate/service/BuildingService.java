@@ -1,14 +1,15 @@
 package com.brainstem.myestate.service;
 
-import com.brainstem.myestate.payload.BuildingDto;
+import com.brainstem.myestate.dto.request.BuildingDto;
+import com.brainstem.myestate.dto.response.BuildingDtoResponse;
 
 import java.util.List;
 
 public interface BuildingService {
-    BuildingDto createBuilding(BuildingDto buildingDto);
-    List<BuildingDto> getAllBuildings(int pageNumber, int pageSize);
-    BuildingDto getBuildingById(long id);
-    BuildingDto updateBuilding(long id, BuildingDto buildingDto);
+    BuildingDtoResponse createBuilding(BuildingDto buildingDto) throws Exception;
+    List<BuildingDtoResponse> getAllBuildings(int pageNumber, int pageSize);
+    BuildingDtoResponse getBuildingById(long id);
+    BuildingDtoResponse updateBuilding(long id, BuildingDto buildingDto) throws Exception;
     void deleteBuilding(long id);
 
 }

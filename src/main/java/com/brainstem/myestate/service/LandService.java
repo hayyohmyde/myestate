@@ -1,12 +1,14 @@
 package com.brainstem.myestate.service;
 
-import com.brainstem.myestate.payload.LandDto;
+import com.brainstem.myestate.dto.request.LandDto;
+import com.brainstem.myestate.dto.response.LandDtoResponse;
+
 import java.util.List;
 
 public interface LandService {
-    LandDto createLand(LandDto landDto);
-    List<LandDto> getAllLands(int pageNumber, int pageSize);
-    LandDto getLandById(long id);
-    LandDto updateLand(long id, LandDto landDto);
+    LandDtoResponse createLand(LandDto landDto) throws Exception;
+    List<LandDtoResponse> getAllLands(int pageNumber, int pageSize);
+    LandDtoResponse getLandById(long id);
+    LandDtoResponse updateLand(long id, LandDto landDto) throws Exception;
     void deleteLand(long id);
 }

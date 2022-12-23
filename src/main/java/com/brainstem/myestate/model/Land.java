@@ -1,11 +1,15 @@
 package com.brainstem.myestate.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.brainstem.myestate.utils.Document;
+import com.brainstem.myestate.utils.LandMeasurement;
+import com.brainstem.myestate.utils.Status;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -24,25 +28,22 @@ public class Land {
     private Long id;
 
     private String owner;
+
     private BigDecimal amount;
 
-    @Column(name = "no_of_plots")
-    private String noOfPlots;
+    @Column(name = "no_of_pieces")
+    private String noOfPieces;
 
-    @Column(name = "c_of_o")
-    private Boolean cOfO;
+    @Column(name = "document")
+    private Document document;
 
-    private String measure;
+    private LandMeasurement measurement;
 
-    private Boolean receipt;
+    @Column(name = "is_estate_land")
+    private Boolean isEstateLand;
 
-    private Boolean survey;
+    private Status status;
 
-    @Column(name = "estate_land")
-    private Boolean estateLand;
-
-    @Column(name = "for_rent")
-    private boolean forRent;
 
     @Column(name = "agency_fee")
     private BigDecimal agencyFee;
@@ -54,15 +55,9 @@ public class Land {
 
     private String info;
 
-//    @JsonBackReference
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
-//    @ToString.Exclude
-//    private User user;
-
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "flatNo", column = @Column(name = "plot_no")),
+            @AttributeOverride(name = "plotNo", column = @Column(name = "plot_no")),
             @AttributeOverride(name = "street", column = @Column(name = "street")),
             @AttributeOverride(name = "nearestJunction", column = @Column(name = "nearest_junction")),
             @AttributeOverride(name = "estate", column = @Column(name = "estate")),
@@ -74,26 +69,8 @@ public class Land {
     })
     private Address address;
 
-    @Column(name = "front_image")
-    private String frontImage;
-
-    @Column(name = "sitting_room_image")
-    private String sittingRoomImage;
-
-    @Column(name = "bedroom_image")
-    private String bedroom1Image;
-
-    @Column(name = "bedroom2_image")
-    private String bedroom2Image;
-
-    @Column(name = "kitchen_image")
-    private String kitchenImage;
-
-    @Column(name = "toilet_image")
-    private String toiletImage;
-
-    @Column(name = "back_image")
-    private String backImage;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Image> landImages;
 
     @Override
     public boolean equals(Object o) {

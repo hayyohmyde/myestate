@@ -1,10 +1,13 @@
 package com.brainstem.myestate.service.serviceImpl;
 
+import com.brainstem.myestate.dto.response.BuildingDtoResponse;
+import com.brainstem.myestate.dto.response.ImageResponse;
 import com.brainstem.myestate.exception.ResourceNotFoundException;
 import com.brainstem.myestate.model.Building;
-import com.brainstem.myestate.payload.BuildingDto;
+import com.brainstem.myestate.dto.request.BuildingDto;
 import com.brainstem.myestate.repository.BuildingRepository;
 import com.brainstem.myestate.service.BuildingService;
+import com.brainstem.myestate.service.ImagesService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,21 +19,23 @@ import java.util.stream.Collectors;
 public class BuildingServiceImpl implements BuildingService {
 
     private BuildingRepository buildingRepository;
+    private ImagesService imagesService;
 
-    public BuildingServiceImpl(BuildingRepository buildingRepository) {
+    public BuildingServiceImpl(BuildingRepository buildingRepository, ImagesService imagesService) {
         this.buildingRepository = buildingRepository;
+        this.imagesService = imagesService;
     }
 
 
         @Override
-        public BuildingDto createBuilding(BuildingDto buildingDto) {
+        public BuildingDtoResponse createBuilding(BuildingDto buildingDto) throws Exception {
             Building building = mapToEntity(buildingDto);
             Building newBuilding = buildingRepository.save(building);
             return mapToDto(newBuilding);
         }
 
         @Override
-        public List<BuildingDto> getAllBuildings(int pageNumber, int pageSize) {
+        public List<BuildingDtoResponse> getAllBuildings(int pageNumber, int pageSize) {
             // create pageRequest instance
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
             Page<Building> buildings = buildingRepository.findAll(pageRequest);
@@ -41,16 +46,16 @@ public class BuildingServiceImpl implements BuildingService {
         }
 
         @Override
-        public BuildingDto getBuildingById(long id) {
+        public BuildingDtoResponse getBuildingById(long id) {
             Building building =  buildingRepository.findById(id).orElseThrow(
                     () -> new ResourceNotFoundException("Land", "id", id));
             return mapToDto(building);
         }
 
         @Override
-        public BuildingDto updateBuilding(long id, BuildingDto buildingDto) {
+        public BuildingDtoResponse updateBuilding(long id, BuildingDto buildingDto) throws Exception {
             //get building by id or throw exception if it does not exist
-            Building building = buildingRepository.findById(id).orElseThrow(
+            buildingRepository.findById(id).orElseThrow(
                     ()-> new ResourceNotFoundException("Building", "id", id)
             );
 
@@ -69,65 +74,50 @@ public class BuildingServiceImpl implements BuildingService {
         }
 
         //mapToEntity
-        private Building mapToEntity(BuildingDto buildingDto){
+        private Building mapToEntity(BuildingDto buildingDto) throws Exception {
             return Building.builder()
-                    .id(buildingDto.getId())
                     .address(buildingDto.getAddress())
                     .agencyFee(buildingDto.getAgencyFee())
                     .owner(buildingDto.getOwner())
-                    .forRent(buildingDto.getForRent())
-                    .receipt(buildingDto.isReceipt())
+                    .status( buildingDto.getStatus())
                     .info(buildingDto.getInfo())
-                    .surveyDocument(buildingDto.isSurveyDocument())
-                    .landMeasure(buildingDto.isLandMeasure())
-                    .cOfO(buildingDto.isCOfO())
+                    .document( buildingDto.getDocument())
+                    .landMeasurement(buildingDto.getLandMeasurement())
+                    .document(buildingDto.getDocument())
                     .buildingType(buildingDto.getBuildingType())
                     .noOfApartments(buildingDto.getNoOfApartments())
                     .apartmentType(buildingDto.getApartmentType())
-                    .designPlan(buildingDto.isDesignPlan())
                     .otherFee(buildingDto.getOtherFee())
-                    .otherRelevantDocument(buildingDto.isOtherRelevantDocument())
                     .amount(buildingDto.getAmount())
                     .commision(buildingDto.getCommision())
-//                    .user(buildingDto.getUser())
-                    .frontImage(buildingDto.getFrontImage())
-                    .backImage(buildingDto.getBackImage())
-                    .kitchenImage(buildingDto.getKitchenImage())
-                    .toiletImage(buildingDto.getToiletImage())
-                    .bedroom1Image(buildingDto.getBedroom1Image())
-                    .bedroom2Image(buildingDto.getBedroom2Image())
+                    .images(imagesService.saveImages(buildingDto.getFiles()))
                     .build();
         }
 
         //mapToDto
-        private BuildingDto mapToDto(Building building){
-            return BuildingDto.builder()
+        private BuildingDtoResponse mapToDto(Building building){
+        List<ImageResponse> imageResponse = building.getImages().stream().map(
+                (image)-> new ImageResponse(image.getFileName(), image.getUrl(), image.getFileType(), image.getSize())
+        ).collect(Collectors.toList());
+            return BuildingDtoResponse.builder()
                     .id(building.getId())
                     .address(building.getAddress())
                     .agencyFee(building.getAgencyFee())
                     .owner(building.getOwner())
-                    .forRent(building.getForRent())
-                    .receipt(building.isReceipt())
+                    .status(building.getStatus())
                     .info(building.getInfo())
-                    .surveyDocument(building.isSurveyDocument())
-                    .landMeasure(building.isLandMeasure())
-                    .cOfO(building.isCOfO())
+                    .landMeasurement(building.getLandMeasurement())
+                    .document(building.getDocument())
                     .buildingType(building.getBuildingType())
                     .noOfApartments(building.getNoOfApartments())
                     .apartmentType(building.getApartmentType())
-                    .designPlan(building.isDesignPlan())
                     .otherFee(building.getOtherFee())
-                    .otherRelevantDocument(building.isOtherRelevantDocument())
                     .amount(building.getAmount())
                     .commision(building.getCommision())
-//                    .user(building.getUser())
-                    .frontImage(building.getFrontImage())
-                    .backImage(building.getBackImage())
-                    .kitchenImage(building.getKitchenImage())
-                    .toiletImage(building.getToiletImage())
-                    .bedroom1Image(building.getBedroom1Image())
-                    .bedroom2Image(building.getBedroom2Image())
+                    .images(imageResponse)
                     .build();
         }
+
+
 }
 

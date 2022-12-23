@@ -3,10 +3,11 @@ package com.brainstem.myestate.model;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
-@Setter @Getter @Entity
+@Setter @Getter @Entity @ToString
 @Table(name = "roles")
 public class Role {
     @Id

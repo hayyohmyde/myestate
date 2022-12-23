@@ -20,5 +20,5 @@ public enum BuildingType {
     STORE,
     CAR_WASH;
 
-    private BuildingType(){}
+    BuildingType(){}
 }

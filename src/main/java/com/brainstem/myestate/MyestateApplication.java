@@ -18,7 +18,7 @@ public class MyestateApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		Role user = new Role();
 		user.setName("ROLE_USER");
 		roleRepository.save(user);

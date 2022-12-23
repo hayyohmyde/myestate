@@ -1,13 +1,14 @@
 package com.brainstem.myestate.security;
 
-import com.brainstem.myestate.payload.UserDto;
+import com.brainstem.myestate.dto.request.UserDto;
+import com.brainstem.myestate.dto.response.UserDtoResponse;
 
 public class JwtAuthResponse {
     private  String accessToken;
     private final String tokenType = "Bearer";
-    private UserDto userDto;
+    private UserDtoResponse userDto;
 
-    public JwtAuthResponse(String accessToken, UserDto userDto) {
+    public JwtAuthResponse(String accessToken, UserDtoResponse userDto) {
         this.accessToken = accessToken;
         this.userDto = userDto;
     }
@@ -24,11 +25,11 @@ public class JwtAuthResponse {
         this.accessToken = accessToken;
     }
 
-    public UserDto getUserDto() {
+    public UserDtoResponse getUserDto() {
         return userDto;
     }
 
-    public void setUserDto(UserDto userDto) {
+    public void setUserDto(UserDtoResponse userDto) {
         this.userDto = userDto;
     }
 }

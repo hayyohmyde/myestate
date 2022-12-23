@@ -65,8 +65,9 @@ public class SecurityConfig{ // WebSecurityConfigurerAdapter was removed bcos it
                 .and()
                 .authorizeRequests((authorize) -> authorize
                         .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-                        .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                        .antMatchers(HttpMethod.HEAD, "api/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
+//                        .antMatchers(HttpMethod.POST, "/api/v1/apartments/**").permitAll()
+//                        .antMatchers(HttpMethod.HEAD, "api/**").permitAll()
                         .antMatchers("/v2/api-docs/**").permitAll()
                         .antMatchers("/swagger-ui/**").permitAll()
                         .antMatchers("/swagger-resources/**").permitAll()

@@ -1,8 +1,8 @@
 package com.brainstem.myestate.controllers;
 
-import com.brainstem.myestate.payload.ImageResponse;
+import com.brainstem.myestate.dto.request.UpateUserDto;
 import com.brainstem.myestate.model.Image;
-import com.brainstem.myestate.payload.UserDto;
+import com.brainstem.myestate.dto.request.UserDto;
 import com.brainstem.myestate.service.ImagesService;
 import com.brainstem.myestate.service.UserService;
 import io.swagger.annotations.Api;
@@ -12,10 +12,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Api("User Controller exposes ")
 @RestController
@@ -51,7 +49,8 @@ public class UserController {
                 .body(new ByteArrayResource(image.getData()));
     }
 
-    public ResponseEntity<?> updateUser(Long userId, @RequestBody UserDto userDto){
+    @PatchMapping("/v1/user/{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable(name = "userId") long userId, @RequestBody UpateUserDto userDto) throws Exception {
         return  ResponseEntity.ok().body(userService.updateProfile(userId, userDto));
     }
 

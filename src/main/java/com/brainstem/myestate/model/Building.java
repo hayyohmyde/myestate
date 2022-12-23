@@ -1,20 +1,19 @@
 package com.brainstem.myestate.model;
 
-import com.brainstem.myestate.utils.ApartmentType;
-import com.brainstem.myestate.utils.BuildingType;
+import com.brainstem.myestate.utils.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -30,7 +29,7 @@ public class Building {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "flatNo", column = @Column(name = "flat_no")),
+            @AttributeOverride(name = "buildingNo", column = @Column(name = "building_no")),
             @AttributeOverride(name = "street", column = @Column(name = "street")),
             @AttributeOverride(name = "nearestJunction", column = @Column(name = "nearest_junction")),
             @AttributeOverride(name = "estate", column = @Column(name = "estate")),
@@ -50,8 +49,7 @@ public class Building {
     @Enumerated(EnumType.STRING)
     private ApartmentType apartmentType;
 
-    @Column(name = "for_rent")
-    private Boolean forRent;
+    private Status status;
 
     private BigDecimal amount;
 
@@ -63,56 +61,21 @@ public class Building {
     @Column(name = "other_fee")
     private BigDecimal otherFee;
 
-    @Column(name = "c_of_o")
-    private boolean cOfO;
-
-    @Column(name = "survey_document")
-    private boolean surveyDocument;
-
-    @Column(name = "design_plan")
-    private boolean designPlan;
-
-    @Column(name = "receipt")
-    private  boolean receipt;
-
-    @Column(name = "other_relevant_document")
-    private boolean otherRelevantDocument;
+    private Document document;
 
     @Column(name = "land_measure")
-    private boolean landMeasure;
+    private LandMeasurement landMeasurement;
 
     private String info;
 
-//    @JsonBackReference
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
-//    @ToString.Exclude
-//    private User user;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Image> images;
 
-    @Column(name = "front_image")
-    private String frontImage;
-
-    @Column(name = "sitting_room_image")
-    private String sittingRoomImage;
-
-    @Column(name = "bedroom_image")
-    private String bedroom1Image;
-
-    @Column(name = "bedroom2_image")
-    private String bedroom2Image;
-
-    @Column(name = "kitchen_image")
-    private String kitchenImage;
-
-    @Column(name = "toilet_image")
-    private String toiletImage;
-
-    @Column(name = "back_image")
-    private String backImage;
-
-    public BuildingType getBuildingType() { return  this.buildingType; }
-
-    public void setBuildingType(BuildingType buildingType){ this.buildingType = buildingType; }
+//    public LandMeasurement getLandMeasurement() { return landMeasurement; }
+//
+//    public void setLandMeasurement(LandMeasurement landMeasurement) {
+//        this.landMeasurement = landMeasurement;
+//    }
 
     @Override
     public boolean equals(Object o) {

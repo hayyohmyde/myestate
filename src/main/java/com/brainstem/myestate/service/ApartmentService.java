@@ -1,25 +1,23 @@
 package com.brainstem.myestate.service;
 
-import com.brainstem.myestate.model.Apartment;
-import com.brainstem.myestate.payload.ApartmentDto;
-import com.brainstem.myestate.payload.ApartmentInputObject;
-import org.springframework.web.multipart.MultipartFile;
+import com.brainstem.myestate.dto.request.ApartmentDto;
+import com.brainstem.myestate.dto.response.ApartmentDtoResponse;
 
 import java.util.List;
 
 
 public interface ApartmentService {
 
-    ApartmentDto createApartment(ApartmentInputObject apartmentInputObject) throws Exception;
+    ApartmentDtoResponse createApartment(ApartmentDto apartmentInputObject) throws Exception;
 
-    List<ApartmentDto> getAllApartments(int pageNumber, int pageSize);
+    List<ApartmentDtoResponse> getAllApartments(int pageNumber, int pageSize);
 
-    ApartmentDto getApartmentById(long id);
+    ApartmentDtoResponse getApartmentById(long id);
 
-    ApartmentDto updateApartment(long id, ApartmentInputObject apartmentInputObject);
+    ApartmentDtoResponse updateApartment(long id, ApartmentDto apartmentInputObject);
 
     void deleteApartment(long id);
 
-    List<ApartmentDto> searchApartments(String query);
+    List<ApartmentDtoResponse> searchApartments(String query);
 
 }

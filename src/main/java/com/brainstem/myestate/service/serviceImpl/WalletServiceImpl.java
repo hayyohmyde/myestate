@@ -1,11 +1,10 @@
 package com.brainstem.myestate.service.serviceImpl;
 
 import com.brainstem.myestate.model.Wallet;
-import com.brainstem.myestate.payload.UserDto;
-import com.brainstem.myestate.payload.WalletDto;
+import com.brainstem.myestate.dto.request.UserDto;
+import com.brainstem.myestate.dto.request.WalletDto;
 import com.brainstem.myestate.repository.UserRepository;
 import com.brainstem.myestate.repository.WalletRepository;
-import com.brainstem.myestate.service.UserService;
 import com.brainstem.myestate.service.WalletService;
 import org.springframework.stereotype.Service;
 

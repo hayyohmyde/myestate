@@ -1,9 +1,7 @@
 package com.brainstem.myestate.service;
 
-import com.brainstem.myestate.model.User;
-import com.brainstem.myestate.model.Wallet;
-import com.brainstem.myestate.payload.UserDto;
-import com.brainstem.myestate.payload.WalletDto;
+import com.brainstem.myestate.dto.request.UserDto;
+import com.brainstem.myestate.dto.request.WalletDto;
 
 import java.math.BigDecimal;
 

@@ -1,23 +1,19 @@
-package com.brainstem.myestate.payload;
+package com.brainstem.myestate.dto.response;
 
+import com.brainstem.myestate.dto.request.ApartmentDto;
 import com.brainstem.myestate.model.Address;
-import com.brainstem.myestate.model.Image;
-import com.brainstem.myestate.model.User;
 import com.brainstem.myestate.utils.ApartmentType;
 import com.brainstem.myestate.utils.BuildingType;
-import lombok.Data;
+import com.brainstem.myestate.utils.Status;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-
 @Setter
 @Getter
-public class ApartmentDto {
+public class ApartmentDtoResponse{
     private Long id;
     private String owner;
     private String noOfRooms;
@@ -31,31 +27,14 @@ public class ApartmentDto {
     private String hoursOfWaterSupply;
     private boolean isServiced;
     private BigDecimal amount;
-    private boolean isRent;
-    private boolean isActive;
+    private Enum<Status> status;
+    private boolean isActive = true;
     private BigDecimal agencyFee;
     private BigDecimal commision;
     private BigDecimal otherFee;
     private String info;
-    private User user;
-    private List<?> images = null;
+    private List<ImageResponse> images;
     private ApartmentType apartmentType;
     private Address address;
     private BuildingType buildingType;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setServiced(boolean serviced) {
-        isServiced = serviced;
-    }
-
-    public void setRent(boolean rent) {
-        isRent = rent;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
 }

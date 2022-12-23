@@ -1,13 +1,13 @@
 package com.brainstem.myestate.model;
 
-import com.brainstem.myestate.payload.ImageResponse;
 import com.brainstem.myestate.utils.ApartmentType;
 import com.brainstem.myestate.utils.BuildingType;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.brainstem.myestate.utils.Status;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -56,27 +56,25 @@ public class Apartment {
 
     @Column(name = "is_serviced")
     private boolean isServiced;
+
+    @NotNull(message = "Amount cannot be empty")
     private BigDecimal amount;
 
     @Column(name="is_active")
     private boolean isActive = true;
 
-    @Column(name = "is_rent")
-    private boolean isRent;
+    @NotNull(message = "Status cannot be empty")
+    private Enum<Status> status;
 
     @Column(name = "agency_fee")
     private BigDecimal agencyFee;
+
     private BigDecimal commision;
 
     @Column(name = "other_fee")
     private BigDecimal otherFee;
-    private String info;
 
-//    @JsonBackReference
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id" )
-//    @ToString.Exclude
-//    private User user;
+    private String info;
 
     @Enumerated(EnumType.STRING)
     private ApartmentType apartmentType;
@@ -98,8 +96,9 @@ public class Apartment {
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
 
+    @NotNull(message = "Apartment images cannot be empty")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Image> images;
+    private List<Image> apartmentImages = new java.util.ArrayList<>();
 
     public ApartmentType getApartmentType(){ return this.apartmentType;}
     public void setApartmentType(ApartmentType apartmentType){ this.apartmentType = apartmentType; }
@@ -116,7 +115,7 @@ public class Apartment {
     public int hashCode() {
         return getClass().hashCode();
     }
-    public boolean isRent() {
-        return this.isRent;
+    public Enum<Status> isRent() {
+        return this.status;
     }
 }

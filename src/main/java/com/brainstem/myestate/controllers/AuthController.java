@@ -1,43 +1,42 @@
 package com.brainstem.myestate.controllers;
 
-import com.brainstem.myestate.payload.LoginDto;
-import com.brainstem.myestate.payload.UserDto;
+import com.brainstem.myestate.dto.request.LoginDto;
+import com.brainstem.myestate.dto.request.UserDto;
 import com.brainstem.myestate.security.JwtAuthResponse;
 import com.brainstem.myestate.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.logging.Logger;
 
 @Api(value = "Auth Controlller exposes Sign in and Sign up REST API")
 @RestController
 @RequestMapping("/api")
 public class AuthController {
 
+    public final Logger log = Logger.getLogger(this.getClass().getCanonicalName());
+
     @Autowired
     private UserService userService;
 
-    @ApiOperation(value = "This REST API " +
-            "requires email or username and a password. " +
-            "Successful response return a JWT token needed " +
-            "to query the rest PUT, PATCH, DELETE and POST")
+    @ApiOperation(value = "This api is where user can sign-up or sign-in")
     @PostMapping("/v1/auth/login")
     public ResponseEntity<JwtAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
         return new ResponseEntity<>(userService.login(loginDto), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This Sign Up REST API " +
-            "requires firstname, lastname, email, username and password for first," +
-            " for signing up. The rest of the details will be later updated in UserController")
-    @PostMapping("/v1/auth/signUp")
-    public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto){
-        return new ResponseEntity<>(userService.SignUp(userDto), HttpStatus.CREATED);
+//    @ApiParam(hidden = true)
+    @ApiOperation(value = "Firstname, lastname, email, phone number, username, password, date of birth are required")
+    @PostMapping(value = "/v1/auth/signUp",
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> signup(@Valid UserDto userDto) throws Exception {
+        log.info("USERDTO => " + userDto.toString());
+        return new ResponseEntity<>(userService.signUp(userDto), HttpStatus.CREATED);
     }
 }

@@ -15,13 +15,19 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="myestate" value="84ea3980-a291-481c-a00f-29f50a78be86" />
+          <factory-entry name="myestate" value="a51cb26f-ba3e-4b02-9e3d-25d07aa9a66c" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset" name="HttpClientConfig" removed="false">
+          <dependency>spring_boot_com.brainstem.myestate.MyestateApplication</dependency>
+          <file>file://$MODULE_DIR$/src/main/java/restclient/HttpClientConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/restclient/RestTemplateConfig.java</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
@@ -82,7 +88,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.23" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.springframework.boot:spring-boot-devtools:2.7.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.7.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.7.4" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.30" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.7.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.23" level="project" />
@@ -117,6 +122,9 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-metadata:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.4" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.24" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.7.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test:2.7.4" level="project" />
@@ -151,5 +159,7 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.65" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.validator:hibernate-validator:6.2.5.Final" level="project" />
     <orderEntry type="library" name="Maven: jakarta.validation:jakarta.validation-api:2.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.7.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.15" level="project" />
   </component>
 </module>

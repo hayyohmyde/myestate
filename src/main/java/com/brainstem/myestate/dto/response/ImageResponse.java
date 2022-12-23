@@ -1,10 +1,8 @@
-package com.brainstem.myestate.payload;
+package com.brainstem.myestate.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
 
 @Data
 @AllArgsConstructor

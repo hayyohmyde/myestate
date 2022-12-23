@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import java.util.Date;
+import java.util.logging.Logger;
 
 @Component
 public class JwtTokenProvider {
@@ -34,7 +35,7 @@ public class JwtTokenProvider {
     public  String getUsernameFromJwtToken(String token){
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
     }
@@ -43,17 +44,18 @@ public class JwtTokenProvider {
     public Boolean validateToken(String token){
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            System.out.println(Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token));
             return true;
         }catch(SignatureException sex){
-            throw new ResourceNotFoundException(sex.getMessage(), token, HttpStatus.BAD_REQUEST.value());
+            throw new ResourceNotFoundException(sex.getMessage() + " Bad token signature", token, HttpStatus.BAD_REQUEST.value());
         }catch(MalformedJwtException mjex){
-            throw new ResourceNotFoundException(mjex.getMessage(), token, HttpStatus.BAD_REQUEST.value());
+            throw new ResourceNotFoundException(mjex.getMessage() + " Malformed Jwt token", token, HttpStatus.BAD_REQUEST.value());
         }catch(ExpiredJwtException ejex){
-            throw new ResourceNotFoundException(ejex.getMessage(), token, HttpStatus.BAD_REQUEST.value());
+            throw new ResourceNotFoundException(ejex.getMessage() + " Expired Jwt token", token, HttpStatus.BAD_REQUEST.value());
         }catch(UnsupportedJwtException ujex){
-            throw new ResourceNotFoundException(ujex.getMessage(), token, HttpStatus.BAD_REQUEST.value());
+            throw new ResourceNotFoundException(ujex.getMessage() + " Unsupported Jwt token", token, HttpStatus.BAD_REQUEST.value());
         }catch(IllegalArgumentException iaex){
-            throw new ResourceNotFoundException(iaex.getMessage(), token, HttpStatus.BAD_REQUEST.value());
+            throw new ResourceNotFoundException(iaex.getMessage() + " Illegal or Wrong details is supplied", token, HttpStatus.BAD_REQUEST.value());
         }
     }
 }

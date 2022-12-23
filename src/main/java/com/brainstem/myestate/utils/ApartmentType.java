@@ -12,5 +12,5 @@ public enum ApartmentType {
     FOUR_BEDROOM_FLAT,
     FIVE_BEDROOM_FLAT;
 
-    private ApartmentType(){}
+    ApartmentType(){}
 }

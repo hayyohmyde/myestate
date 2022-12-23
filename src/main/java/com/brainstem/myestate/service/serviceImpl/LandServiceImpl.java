@@ -1,38 +1,48 @@
 package com.brainstem.myestate.service.serviceImpl;
 
+import com.brainstem.myestate.dto.response.ImageResponse;
+import com.brainstem.myestate.dto.response.LandDtoResponse;
 import com.brainstem.myestate.exception.ResourceNotFoundException;
+import com.brainstem.myestate.model.Image;
 import com.brainstem.myestate.model.Land;
-import com.brainstem.myestate.payload.LandDto;
+import com.brainstem.myestate.dto.request.LandDto;
+import com.brainstem.myestate.repository.ImageRepository;
 import com.brainstem.myestate.repository.LandRepository;
 import com.brainstem.myestate.repository.UserRepository;
+import com.brainstem.myestate.service.ImagesService;
 import com.brainstem.myestate.service.LandService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class LandServiceImpl implements LandService {
     UserRepository userRepository;
     LandRepository landRepository;
+    ImagesService imagesService;
 
-    public LandServiceImpl(UserRepository userRepository, LandRepository landRepository) {
+    public LandServiceImpl(UserRepository userRepository,
+                           LandRepository landRepository,
+                           ImagesService imageService) {
         this.userRepository = userRepository;
         this.landRepository = landRepository;
+        this.imagesService = imageService;
     }
 
 
     @Override
-    public LandDto createLand(LandDto landDto) {
+    public LandDtoResponse createLand(LandDto landDto) throws Exception {
         Land land = mapToEntity(landDto);
         Land newLand = landRepository.save(land);
         return mapToDto(newLand);
     }
 
     @Override
-    public List<LandDto> getAllLands(int pageNumber, int pageSize) {
+    public List<LandDtoResponse> getAllLands(int pageNumber, int pageSize) {
         // create pageRequest instance
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         Page<Land> lands = landRepository.findAll(pageRequest);
@@ -43,14 +53,14 @@ public class LandServiceImpl implements LandService {
     }
 
     @Override
-    public LandDto getLandById(long id) {
+    public LandDtoResponse getLandById(long id) {
         Land land =  landRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Land", "id", id));
         return mapToDto(land);
     }
 
     @Override
-    public LandDto updateLand(long id, LandDto landDto) {
+    public LandDtoResponse updateLand(long id, LandDto landDto) throws Exception {
         //get land by id or throw exception if it does not exist
         Land land = landRepository.findById(id).orElseThrow(
                 ()-> new ResourceNotFoundException("Land", "id", id)
@@ -71,62 +81,53 @@ public class LandServiceImpl implements LandService {
     }
 
     //mapToEntity
-    private Land mapToEntity(LandDto landDto){
+    private Land mapToEntity(LandDto landDto) throws Exception {
         return Land.builder()
-                .id(landDto.getId())
                 .address(landDto.getAddress())
                 .agencyFee(landDto.getAgencyFee())
                 .amount(landDto.getAmount())
-                .cOfO(landDto.getCOfO())
+                .document(landDto.getDocument())
                 .info(landDto.getInfo())
-                .measure(landDto.getMeasure())
-                .forRent(landDto.isForRent())
+                .measurement(landDto.getMeasurement())
+                .status(landDto.getStatus())
                 .owner(landDto.getOwner())
-                .estateLand(landDto.getEstateLand())
+                .isEstateLand(landDto.getIsEstateLand())
                 .commision(landDto.getCommision())
-                .noOfPlots(landDto.getNoOfPlots())
-                .receipt(landDto.getReceipt())
+                .noOfPieces(landDto.getNoOfPieces())
                 .otherFee(landDto.getOtherFee())
-                .survey(landDto.getSurvey())
-//                .user(landDto.getUser())
                 .address(landDto.getAddress())
-                .forRent(landDto.isForRent())
-                .frontImage(landDto.getFrontImage())
-                .backImage(landDto.getBackImage())
-                .sittingRoomImage(landDto.getSittingRoomImage())
-                .bedroom1Image(landDto.getBedroom1Image())
-                .bedroom2Image(landDto.getBedroom2Image())
-                .toiletImage(landDto.getToiletImage())
+                .landImages(imagesService.saveImages(landDto.getFiles()))
                 .build();
     }
 
     //mapToDto
-    private LandDto mapToDto(Land land){
-        return LandDto.builder()
+    private LandDtoResponse mapToDto(Land land){
+        List<Image> images = land.getLandImages();
+        List<ImageResponse> imageResponses = images.stream().map(
+                (image -> new ImageResponse(
+                        image.getFileName(),
+                        image.getUrl(),
+                        image.getFileType(),
+                        image.getSize()))
+        ).collect(Collectors.toList());
+
+        return LandDtoResponse.builder()
                 .id(land.getId())
                 .address(land.getAddress())
                 .agencyFee(land.getAgencyFee())
                 .amount(land.getAmount())
-                .cOfO(land.getCOfO())
+                .document(land.getDocument())
                 .info(land.getInfo())
-                .measure(land.getMeasure())
-                .forRent(land.isForRent())
+                .measurement(land.getMeasurement())
+                .status(land.getStatus())
                 .owner(land.getOwner())
-                .estateLand(land.getEstateLand())
+                .isEstateLand(land.getIsEstateLand())
                 .commision(land.getCommision())
-                .noOfPlots(land.getNoOfPlots())
-                .receipt(land.getReceipt())
+                .noOfPieces(land.getNoOfPieces())
                 .otherFee(land.getOtherFee())
-                .survey(land.getSurvey())
-//                .user(land.getUser())
                 .address(land.getAddress())
-                .forRent(land.isForRent())
-                .frontImage(land.getFrontImage())
-                .backImage(land.getBackImage())
-                .sittingRoomImage(land.getSittingRoomImage())
-                .bedroom1Image(land.getBedroom1Image())
-                .bedroom2Image(land.getBedroom2Image())
-                .toiletImage(land.getToiletImage())
+                .status(land.getStatus())
+                .landImages(imageResponses)
                 .build();
     }
 }

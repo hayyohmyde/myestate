@@ -1,19 +1,20 @@
-package com.brainstem.myestate.payload;
+package com.brainstem.myestate.dto.request;
 
 import com.brainstem.myestate.model.Address;
-import com.brainstem.myestate.model.Image;
 import com.brainstem.myestate.model.User;
 import com.brainstem.myestate.utils.ApartmentType;
 import com.brainstem.myestate.utils.BuildingType;
+import com.brainstem.myestate.utils.Status;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
-public class ApartmentInputObject {
+public class ApartmentDto {
         private String owner;
         private String noOfRooms;
         private String noOfSittingRooms;
@@ -26,15 +27,13 @@ public class ApartmentInputObject {
         private String hoursOfWaterSupply;
         private boolean isServiced;
         private BigDecimal amount;
-        private boolean isRent;
+        private Enum<Status> status;
         private BigDecimal agencyFee;
         private BigDecimal commision;
         private BigDecimal otherFee;
         private String info;
-        private User user;
-        private MultipartFile[] files = null;
+        private MultipartFile[] files;
         private ApartmentType apartmentType;
         private Address address;
         private BuildingType buildingType;
-
 }
